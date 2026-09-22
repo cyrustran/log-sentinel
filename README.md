@@ -85,5 +85,5 @@ python3 log_sentinel.py /var/log/auth.log || echo "Security alert!" | mail -s "L
 
 ## Author
 
-**Your Name**, IT student concentrating in Cybersecurity
-[LinkedIn](https://linkedin.com/in/your-profile)
+Phengtheu Cyrus Tran, IT student concentrating in Cybersecurity
+
