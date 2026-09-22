@@ -1,0 +1,140 @@
+{
+  "generated": "2026-09-22T20:33:14",
+  "alert_count": 9,
+  "alerts": [
+    {
+      "type": "compromise",
+      "severity": "CRITICAL",
+      "title": "Possible account compromise: 'deploy' from 198.51.100.23",
+      "detail": "Successful password login after 25 failed attempts from the same IP. Treat as a likely breach and investigate.",
+      "ip": "198.51.100.23",
+      "user": "deploy",
+      "time": "2026-09-21 02:11:47",
+      "mitre_id": "T1078",
+      "mitre_name": "Valid Accounts",
+      "evidence": [
+        "Sep 21 02:11:47 web01 sshd[3805]: Accepted password for deploy from 198.51.100.23 port 58812 ssh2"
+      ]
+    },
+    {
+      "type": "brute_force",
+      "severity": "HIGH",
+      "title": "Brute-force attempt from 203.0.113.45",
+      "detail": "38 failed logins within 60s (40 total). Usernames tried: root.",
+      "ip": "203.0.113.45",
+      "user": null,
+      "time": "2026-09-21 01:02:11",
+      "mitre_id": "T1110",
+      "mitre_name": "Brute Force",
+      "evidence": [
+        "Sep 21 01:02:05 web01 sshd[2463]: Failed password for root from 203.0.113.45 port 47315 ssh2",
+        "Sep 21 01:02:07 web01 sshd[2501]: Failed password for root from 203.0.113.45 port 58910 ssh2",
+        "Sep 21 01:02:08 web01 sshd[2504]: Failed password for root from 203.0.113.45 port 47244 ssh2"
+      ]
+    },
+    {
+      "type": "brute_force",
+      "severity": "HIGH",
+      "title": "Brute-force attempt from 198.51.100.23",
+      "detail": "19 failed logins within 60s (25 total). Usernames tried: admin, deploy, root, test, ubuntu.",
+      "ip": "198.51.100.23",
+      "user": null,
+      "time": "2026-09-21 02:10:17",
+      "mitre_id": "T1110",
+      "mitre_name": "Brute Force",
+      "evidence": [
+        "Sep 21 02:10:03 web01 sshd[3374]: Failed password for invalid user test from 198.51.100.23 port 54963 ssh2",
+        "Sep 21 02:10:06 web01 sshd[3410]: Failed password for deploy from 198.51.100.23 port 52857 ssh2",
+        "Sep 21 02:10:09 web01 sshd[3417]: Failed password for root from 198.51.100.23 port 55778 ssh2"
+      ]
+    },
+    {
+      "type": "sudo",
+      "severity": "HIGH",
+      "title": "sudo used by 'deploy' (possibly compromised account)",
+      "detail": "Command run as root: /usr/sbin/useradd -m -s /bin/bash sysupdate",
+      "ip": null,
+      "user": "deploy",
+      "time": "2026-09-21 02:12:32",
+      "mitre_id": "T1548.003",
+      "mitre_name": "Abuse Elevation Control Mechanism: Sudo",
+      "evidence": [
+        "Sep 21 02:12:32 web01 sudo:   deploy : TTY=pts/1 ; PWD=/home/deploy ; USER=root ; COMMAND=/usr/sbin/useradd -m -s /bin/bash sysupdate"
+      ]
+    },
+    {
+      "type": "new_account",
+      "severity": "HIGH",
+      "title": "New local account created: 'sysupdate'",
+      "detail": "Attackers often create accounts for persistence. Verify this account was created by an authorized admin.",
+      "ip": null,
+      "user": "sysupdate",
+      "time": "2026-09-21 02:12:33",
+      "mitre_id": "T1136.001",
+      "mitre_name": "Create Account: Local Account",
+      "evidence": [
+        "Sep 21 02:12:33 web01 useradd[3840]: new user: name=sysupdate, UID=1002, GID=1002, home=/home/sysupdate, shell=/bin/bash, from=/dev/pts/1"
+      ]
+    },
+    {
+      "type": "sudo",
+      "severity": "HIGH",
+      "title": "sudo used by 'deploy' (possibly compromised account)",
+      "detail": "Command run as root: /usr/sbin/usermod -aG sudo sysupdate",
+      "ip": null,
+      "user": "deploy",
+      "time": "2026-09-21 02:13:02",
+      "mitre_id": "T1548.003",
+      "mitre_name": "Abuse Elevation Control Mechanism: Sudo",
+      "evidence": [
+        "Sep 21 02:13:02 web01 sudo:   deploy : TTY=pts/1 ; PWD=/home/deploy ; USER=root ; COMMAND=/usr/sbin/usermod -aG sudo sysupdate"
+      ]
+    },
+    {
+      "type": "enumeration",
+      "severity": "MEDIUM",
+      "title": "Username enumeration from 198.51.100.23",
+      "detail": "Tried 5 different usernames: admin, deploy, root, test, ubuntu.",
+      "ip": "198.51.100.23",
+      "user": null,
+      "time": "2026-09-21 02:10:03",
+      "mitre_id": "T1110.003",
+      "mitre_name": "Brute Force: Password Spraying (many-username pattern)",
+      "evidence": [
+        "Sep 21 02:10:03 web01 sshd[3374]: Failed password for invalid user test from 198.51.100.23 port 54963 ssh2",
+        "Sep 21 02:10:06 web01 sshd[3410]: Failed password for deploy from 198.51.100.23 port 52857 ssh2",
+        "Sep 21 02:10:09 web01 sshd[3417]: Failed password for root from 198.51.100.23 port 55778 ssh2"
+      ]
+    },
+    {
+      "type": "enumeration",
+      "severity": "MEDIUM",
+      "title": "Username enumeration from 192.0.2.77",
+      "detail": "Tried 8 different usernames: admin, ftpuser, git, guest, oracle, pi, postgres, test.",
+      "ip": "192.0.2.77",
+      "user": null,
+      "time": "2026-09-21 03:01:02",
+      "mitre_id": "T1110.003",
+      "mitre_name": "Brute Force: Password Spraying (many-username pattern)",
+      "evidence": [
+        "Sep 21 03:01:02 web01 sshd[3894]: Failed password for invalid user admin from 192.0.2.77 port 59997 ssh2",
+        "Sep 21 03:05:02 web01 sshd[3948]: Failed password for invalid user test from 192.0.2.77 port 61074 ssh2",
+        "Sep 21 03:09:02 web01 sshd[3969]: Failed password for invalid user oracle from 192.0.2.77 port 55664 ssh2"
+      ]
+    },
+    {
+      "type": "sudo",
+      "severity": "LOW",
+      "title": "sudo used by 'jordan'",
+      "detail": "Command run as root: /usr/bin/apt update",
+      "ip": null,
+      "user": "jordan",
+      "time": "2026-09-21 09:16:02",
+      "mitre_id": "T1548.003",
+      "mitre_name": "Abuse Elevation Control Mechanism: Sudo",
+      "evidence": [
+        "Sep 21 09:16:02 web01 sudo:   jordan : TTY=pts/0 ; PWD=/home/jordan ; USER=root ; COMMAND=/usr/bin/apt update"
+      ]
+    }
+  ]
+}

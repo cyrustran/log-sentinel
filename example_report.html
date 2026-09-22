@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log Sentinel report: sample_auth.log</title>
+<style>
+  :root { --bg:#eef1f4; --panel:#ffffff; --ink:#1c2530; --muted:#5b6876; --line:#d5dbe1;
+          --crit:#b3261e; --high:#d9480f; --med:#b58100; --low:#2f6f8f; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141a21; --panel:#1d252e; --ink:#e4e9ee; --muted:#9aa7b4; --line:#2e3944;
+            --crit:#ff6b61; --high:#ff8a4c; --med:#f0c14b; --low:#6fb7d9; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.55 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; }
+  main { max-width:880px; margin:0 auto; padding:40px 20px 64px; }
+  header h1 { margin:0 0 4px; font-size:1.9rem; letter-spacing:-0.01em; }
+  header p { margin:0; color:var(--muted); }
+  .counts { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:28px 0 32px; }
+  .count { background:var(--panel); border:1px solid var(--line); border-top:4px solid; padding:12px 14px; }
+  .count strong { display:block; font-size:1.8rem; line-height:1.1; }
+  .count span { color:var(--muted); font-size:.9rem; }
+  .sev-critical { --sev:var(--crit); } .sev-high { --sev:var(--high); }
+  .sev-medium { --sev:var(--med); }   .sev-low { --sev:var(--low); }
+  .count { border-top-color:var(--sev); }
+  .alert { background:var(--panel); border:1px solid var(--line); border-left:6px solid var(--sev);
+           padding:16px 20px; margin-bottom:14px; }
+  .alert-head { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+  .alert h3 { margin:0; font-size:1.08rem; }
+  .badge { background:var(--sev); color:#fff; font-size:.75rem; font-weight:700; padding:2px 8px; }
+  .alert p { margin:8px 0 0; }
+  .meta { color:var(--muted); font-size:.9rem; }
+  .meta a { color:inherit; }
+  details { margin-top:10px; }
+  summary { cursor:pointer; color:var(--muted); font-size:.9rem; }
+  pre { overflow-x:auto; background:var(--bg); padding:10px; font-size:.8rem; margin:8px 0 0; }
+  @media (max-width:560px) { .counts { grid-template-columns:repeat(2,1fr); } }
+</style></head>
+<body><main>
+  <header>
+    <h1>Log Sentinel report</h1>
+    <p>Source: sample_auth.log &nbsp;|&nbsp; 82 relevant events &nbsp;|&nbsp;
+       generated 2026-09-22 20:33</p>
+  </header>
+  <section class="counts"><div class="count sev-critical"><strong>1</strong><span>Critical</span></div><div class="count sev-high"><strong>5</strong><span>High</span></div><div class="count sev-medium"><strong>2</strong><span>Medium</span></div><div class="count sev-low"><strong>1</strong><span>Low</span></div></section>
+  <section>
+      <article class="alert sev-critical">
+        <div class="alert-head">
+          <span class="badge">CRITICAL</span>
+          <h3>Possible account compromise: &#x27;deploy&#x27; from 198.51.100.23</h3>
+        </div>
+        <p>Successful password login after 25 failed attempts from the same IP. Treat as a likely breach and investigate.</p>
+        <p class="meta">2026-09-21 02:11:47 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1078/"
+             target="_blank" rel="noopener">MITRE T1078</a> Valid Accounts</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:11:47 web01 sshd[3805]: Accepted password for deploy from 198.51.100.23 port 58812 ssh2</pre></details>
+      </article>
+      <article class="alert sev-high">
+        <div class="alert-head">
+          <span class="badge">HIGH</span>
+          <h3>Brute-force attempt from 203.0.113.45</h3>
+        </div>
+        <p>38 failed logins within 60s (40 total). Usernames tried: root.</p>
+        <p class="meta">2026-09-21 01:02:11 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1110/"
+             target="_blank" rel="noopener">MITRE T1110</a> Brute Force</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 01:02:05 web01 sshd[2463]: Failed password for root from 203.0.113.45 port 47315 ssh2
+Sep 21 01:02:07 web01 sshd[2501]: Failed password for root from 203.0.113.45 port 58910 ssh2
+Sep 21 01:02:08 web01 sshd[2504]: Failed password for root from 203.0.113.45 port 47244 ssh2</pre></details>
+      </article>
+      <article class="alert sev-high">
+        <div class="alert-head">
+          <span class="badge">HIGH</span>
+          <h3>Brute-force attempt from 198.51.100.23</h3>
+        </div>
+        <p>19 failed logins within 60s (25 total). Usernames tried: admin, deploy, root, test, ubuntu.</p>
+        <p class="meta">2026-09-21 02:10:17 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1110/"
+             target="_blank" rel="noopener">MITRE T1110</a> Brute Force</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:10:03 web01 sshd[3374]: Failed password for invalid user test from 198.51.100.23 port 54963 ssh2
+Sep 21 02:10:06 web01 sshd[3410]: Failed password for deploy from 198.51.100.23 port 52857 ssh2
+Sep 21 02:10:09 web01 sshd[3417]: Failed password for root from 198.51.100.23 port 55778 ssh2</pre></details>
+      </article>
+      <article class="alert sev-high">
+        <div class="alert-head">
+          <span class="badge">HIGH</span>
+          <h3>sudo used by &#x27;deploy&#x27; (possibly compromised account)</h3>
+        </div>
+        <p>Command run as root: /usr/sbin/useradd -m -s /bin/bash sysupdate</p>
+        <p class="meta">2026-09-21 02:12:32 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1548/003/"
+             target="_blank" rel="noopener">MITRE T1548.003</a> Abuse Elevation Control Mechanism: Sudo</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:12:32 web01 sudo:   deploy : TTY=pts/1 ; PWD=/home/deploy ; USER=root ; COMMAND=/usr/sbin/useradd -m -s /bin/bash sysupdate</pre></details>
+      </article>
+      <article class="alert sev-high">
+        <div class="alert-head">
+          <span class="badge">HIGH</span>
+          <h3>New local account created: &#x27;sysupdate&#x27;</h3>
+        </div>
+        <p>Attackers often create accounts for persistence. Verify this account was created by an authorized admin.</p>
+        <p class="meta">2026-09-21 02:12:33 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1136/001/"
+             target="_blank" rel="noopener">MITRE T1136.001</a> Create Account: Local Account</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:12:33 web01 useradd[3840]: new user: name=sysupdate, UID=1002, GID=1002, home=/home/sysupdate, shell=/bin/bash, from=/dev/pts/1</pre></details>
+      </article>
+      <article class="alert sev-high">
+        <div class="alert-head">
+          <span class="badge">HIGH</span>
+          <h3>sudo used by &#x27;deploy&#x27; (possibly compromised account)</h3>
+        </div>
+        <p>Command run as root: /usr/sbin/usermod -aG sudo sysupdate</p>
+        <p class="meta">2026-09-21 02:13:02 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1548/003/"
+             target="_blank" rel="noopener">MITRE T1548.003</a> Abuse Elevation Control Mechanism: Sudo</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:13:02 web01 sudo:   deploy : TTY=pts/1 ; PWD=/home/deploy ; USER=root ; COMMAND=/usr/sbin/usermod -aG sudo sysupdate</pre></details>
+      </article>
+      <article class="alert sev-medium">
+        <div class="alert-head">
+          <span class="badge">MEDIUM</span>
+          <h3>Username enumeration from 198.51.100.23</h3>
+        </div>
+        <p>Tried 5 different usernames: admin, deploy, root, test, ubuntu.</p>
+        <p class="meta">2026-09-21 02:10:03 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1110/003/"
+             target="_blank" rel="noopener">MITRE T1110.003</a> Brute Force: Password Spraying (many-username pattern)</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 02:10:03 web01 sshd[3374]: Failed password for invalid user test from 198.51.100.23 port 54963 ssh2
+Sep 21 02:10:06 web01 sshd[3410]: Failed password for deploy from 198.51.100.23 port 52857 ssh2
+Sep 21 02:10:09 web01 sshd[3417]: Failed password for root from 198.51.100.23 port 55778 ssh2</pre></details>
+      </article>
+      <article class="alert sev-medium">
+        <div class="alert-head">
+          <span class="badge">MEDIUM</span>
+          <h3>Username enumeration from 192.0.2.77</h3>
+        </div>
+        <p>Tried 8 different usernames: admin, ftpuser, git, guest, oracle, pi, postgres, test.</p>
+        <p class="meta">2026-09-21 03:01:02 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1110/003/"
+             target="_blank" rel="noopener">MITRE T1110.003</a> Brute Force: Password Spraying (many-username pattern)</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 03:01:02 web01 sshd[3894]: Failed password for invalid user admin from 192.0.2.77 port 59997 ssh2
+Sep 21 03:05:02 web01 sshd[3948]: Failed password for invalid user test from 192.0.2.77 port 61074 ssh2
+Sep 21 03:09:02 web01 sshd[3969]: Failed password for invalid user oracle from 192.0.2.77 port 55664 ssh2</pre></details>
+      </article>
+      <article class="alert sev-low">
+        <div class="alert-head">
+          <span class="badge">LOW</span>
+          <h3>sudo used by &#x27;jordan&#x27;</h3>
+        </div>
+        <p>Command run as root: /usr/bin/apt update</p>
+        <p class="meta">2026-09-21 09:16:02 &nbsp;|&nbsp;
+          <a href="https://attack.mitre.org/techniques/T1548/003/"
+             target="_blank" rel="noopener">MITRE T1548.003</a> Abuse Elevation Control Mechanism: Sudo</p>
+        <details><summary>Evidence from the log</summary><pre>Sep 21 09:16:02 web01 sudo:   jordan : TTY=pts/0 ; PWD=/home/jordan ; USER=root ; COMMAND=/usr/bin/apt update</pre></details>
+      </article></section>
+</main></body></html>
